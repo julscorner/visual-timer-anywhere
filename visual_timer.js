@@ -1,12 +1,14 @@
+// https://caiorss.github.io/bookmarklet-maker/
 const VISUAL_TIMER_CLASSNAME = "visual-timer";
 
 const circle_arc = {
-    center_x : 200, 
-    center_y: 200, 
-    radius: 180,
+    center_x : 50, 
+    center_y: 50, 
+    radius: 50,
     angle_start: 0
 }
 
+// https://stackoverflow.com/questions/48941773/how-to-automatically-run-custom-javascript-code-when-loading-a-webpage
 // https://developer.mozilla.org/en-US/docs/Web/API/Canvas_API/Tutorial/Basic_animations
 
 function trace_timer_circle(proportion, canvas_elem, color) {
@@ -53,7 +55,7 @@ function toggle_pause_timer() {
 
 function create_visual_timer() {
     var canvas_elem = document.createElement('canvas');
-    var title_elem = document.createElement('h2');
+    // var title_elem = document.createElement('h2');
     var pause_button = document.createElement('div');
     var container = document.createElement('div');
     var color = document.querySelector('#id_color').value;
@@ -61,9 +63,9 @@ function create_visual_timer() {
     var first_timer = document.querySelector('.' + VISUAL_TIMER_CLASSNAME);
 
     container.classList = [VISUAL_TIMER_CLASSNAME];
-    canvas_elem.width = 400;
-    canvas_elem.height = 400;
-    title_elem.textContent = document.querySelector('#id_timer_name').value;
+    canvas_elem.width = 100;
+    canvas_elem.height = 100;
+    //title_elem.textContent = document.querySelector('#id_timer_name').value;
     pause_button.textContent = 'Pause';
 
     var pause_object = {
@@ -72,8 +74,8 @@ function create_visual_timer() {
     };
     pause_button.addEventListener('click', toggle_pause_timer.bind(pause_object));
 
-    const duration = document.querySelector('#id_duration_minutes').value * 60 
-        + document.querySelector('#id_duration_seconds').value;
+    const duration = document.querySelector('#id_duration_minutes').value * 60;
+        // + document.querySelector('#id_duration_seconds').value;
     
     trace_timer_circle(1.0, canvas_elem);
     
@@ -85,7 +87,7 @@ function create_visual_timer() {
         pause_object: pause_object
     }), 50);
 
-    container.append(title_elem);
+    // container.append(title_elem);
     container.append(canvas_elem);
     container.append(pause_button);
 
@@ -102,4 +104,54 @@ function bind_click_create_button() {
     button_elem.addEventListener('click', create_visual_timer); 
 }
 
+function create_form() {
+    const container = document.createElement('div');
+    container.classList = "visual-timer-form";
+
+    const labelColor = document.createElement('label');
+    labelColor.for = "id_color";
+    labelColor.textContent = "Color:";
+
+    const selectColor = document.createElement('select');
+    selectColor.name = "color";
+    selectColor.id = "id_color";
+
+    const redOptionElem = document.createElement('option');
+    redOptionElem.textContent = "red";
+    const greenOptionElem = document.createElement('option');
+    greenOptionElem.textContent = "green";
+    const blueOptionElem = document.createElement('option');
+    blueOptionElem.textContent = "blue";
+
+    selectColor.append(redOptionElem);
+    selectColor.append(greenOptionElem);
+    selectColor.append(blueOptionElem);
+
+    const labelMinutes = document.createElement('label');
+    labelMinutes.for = "id_duration_minutes";
+    labelMinutes.textContent = "Minutes:";
+
+    const inputMinutes = document.createElement('input');
+    inputMinutes.type = "number";
+    inputMinutes.name = "duration_minutes";
+    inputMinutes.id = "id_duration_minutes";
+    inputMinutes.min = "0";
+
+    labelMinutes.append(inputMinutes);
+    labelColor.append(selectColor);
+
+    const createButton = document.createElement('button');
+    createButton.classList = "create_timer_button";
+    createButton.textContent = "Create";
+
+    container.append(labelColor);
+    container.append(labelMinutes);
+    container.append(createButton);
+
+
+    const bodyElem = document.querySelector('body');
+    bodyElem.append(container);
+}
+
+create_form();
 bind_click_create_button();
