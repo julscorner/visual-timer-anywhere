@@ -1,0 +1,24 @@
+<h1>Create your visual timer</h1>
+
+<div class="visual-timer-form" action="">
+    <h3>Color</h3>
+    <label for="id_color">Color:
+        <select name="color" id="id_color">
+            <option>red</option> 
+            <option>green</option>
+            <option>blue</option>
+        </select>
+    </label> <!-- label englobe le select -->
+    <h3>Duration</h3>
+    <label for="id_duration_minutes">Minutes:
+        <input type="number" name="duration_minutes" id="id_duration_minutes" min="0" max="60">
+    </label>
+    <label for="id_duration_seconds">Seconds:
+        <input type="number" name="duration_seconds" id="id_duration_seconds" min="0" max="59">
+    </label>
+    <h3>Name your timer</h3>
+    <label for="id_timer_name">Name
+        <input type="text" name="timer_name" id="id_timer_name">
+    </label>
+    <button class="create_timer_button">Create</button>
+</div>
